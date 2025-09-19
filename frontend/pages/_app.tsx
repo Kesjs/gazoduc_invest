@@ -5,14 +5,23 @@ import { AuthProvider } from '@/contexts/AuthContext';
 import '@/styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  // Add PWA installation prompt
+  // Register service worker only in production
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js');
-        });
-      }
+    if (process.env.NODE_ENV === 'production' && typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+      const registerServiceWorker = async () => {
+        try {
+          const registration = await navigator.serviceWorker.register('/sw.js');
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        } catch (error) {
+          console.error('ServiceWorker registration failed: ', error);
+        }
+      };
+      
+      window.addEventListener('load', registerServiceWorker);
+      
+      return () => {
+        window.removeEventListener('load', registerServiceWorker);
+      };
     }
   }, []);
 
