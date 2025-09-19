@@ -6,10 +6,9 @@
       "use": "@vercel/next"
     }
   ],
-  "env": {
-    "NEXT_PUBLIC_SUPABASE_URL": "https://pskiaoavhmpunojjilma.supabase.co",
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBza2lhb2F2aG1wdW5vamppbG1hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgwODgwNDYsImV4cCI6MjA3MzY2NDA0Nn0.lFbuczAny1OBUWYmVGJQZrIMQjjC7Xg9VcPQOxEIn9o"
-  },
   "buildCommand": "npm run build",
-  "outputDirectory": ".next"
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/.*", "dest": "/" }
+  ]
 }
