@@ -4,22 +4,21 @@ const nextConfig = {
   swcMinify: true,
   images: {
     domains: ['pskiaoavhmpunojjilma.supabase.co'],
-    unoptimized: true, // Disable image optimization if not needed
+    unoptimized: true, // Désactive l'optimisation d'image si non nécessaire
   },
   trailingSlash: false,
   poweredByHeader: false,
   compress: true,
-  
-  // Configure redirects
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/dashboard',
-        permanent: false,
-      },
-    ];
+  // Configuration pour ngrok
+  publicRuntimeConfig: {
+    // URL de base pour les requêtes API
+    apiUrl: process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3000'  // URL de développement local
+      : process.env.NEXT_PUBLIC_VERCEL_URL || 'https://your-ngrok-url.ngrok.io',  // URL de production ou ngrok
   },
+  
+  // Redirections personnalisées
+  // (Aucune redirection automatique configurée)
 
   // Configure headers
   async headers() {
